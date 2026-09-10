@@ -1,1 +1,0 @@
-# logic_ficha.py
