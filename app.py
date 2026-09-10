@@ -25,11 +25,11 @@ def index():
             'maestro_obra': request.form.get('maestro_obra', '0'),
             'albanil': request.form.get('albanil', '0'),
             'obreros': request.form.get('obreros', '0'),
-            'observaciones': request.form.get('observaciones', ''),
-            'avance_total': request.form.get('avance_total', '0')
+            'avance_total': request.form.get('avance_total', '0'),
+            'observaciones': request.form.get('observaciones', '')
         }
 
-        # Procesar fases constructivas
+        # Procesar fases de la obra
         nombres_fases = request.form.getlist('fase_nombre')
         avances_fases = request.form.getlist('fase_avance')
         estatus_fases = request.form.getlist('fase_estatus')
@@ -49,12 +49,12 @@ def index():
                 fotos_paths.append(file_path)
 
         # Generar PDF
-        pdf_path = os.path.join(UPLOAD_FOLDER, "Reporte_Ficha_Tecnica.pdf")
+        pdf_path = os.path.join(UPLOAD_FOLDER, "reporte_avance.pdf")
         generar_pdf_ficha(data, fotos_paths, pdf_path)
 
         return send_file(pdf_path, as_attachment=True)
 
-    return render_template('index.html')
+    return render_template('ficha_form.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
